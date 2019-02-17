@@ -1,50 +1,32 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
-
 import React, {Component} from 'react';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import {APIKeyContext} from './APIKeyContext';
 
-type Props = {};
-export default class App extends Component<Props> {
+import SearchScreen from './SearchScreen';
+import DisplayScreen from './DisplayScreen';
+import DetailsScreen from './DetailsScreen';
+
+const AppNavigator = createStackNavigator(
+  {
+    Search: SearchScreen,
+    Display: DisplayScreen,
+    Details: DetailsScreen
+  },
+  {
+    initialRouteName: 'Search'
+  }
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Thomas was here yay!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      <APIKeyContext.Provider value="11630591-eda87b0fc54bf01f19cac7a0c">
+        <AppContainer />
+      </APIKeyContext.Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
