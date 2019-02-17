@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, Image, Alert, TouchableOpacity} from 'react-native';
 import {FlatList} from 'react-navigation';
 
-import APIKeyContext from './APIKeyContext';
+import {APIKeyContext} from './APIKeyContext';
 import Styles from './Styles';
 
 function convertObjectToQueryString(obj) {
@@ -21,7 +21,7 @@ export default class DisplayScreen extends Component {
   }
 
   retrieveImagesFromAPI() {
-    const apiKey = '';
+    const apiKey = this.context;
     const searchQuery = this.props.navigation.getParam('searchQuery', '');
     const perPage = 20;
     const queryString = convertObjectToQueryString({
@@ -84,7 +84,6 @@ export default class DisplayScreen extends Component {
     return (
       <View style={Styles.ListStyle}>
         <FlatList
-          styles={Styles.ListStyle}
           data={this.state.images}
           renderItem={renderImage}
           keyExtractor={keyExtractor}

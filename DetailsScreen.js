@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, Image, Dimensions} from 'react-native';
 
-import APIKeyContext from './APIKeyContext';
+import {APIKeyContext} from './APIKeyContext';
 import Styles from './Styles';
 
 export default class DetailsScreen extends Component {

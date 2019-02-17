@@ -3,6 +3,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
 import {APIKeyContext} from './APIKeyContext';
+import {APIKey} from './APIKey';
 
 import SearchScreen from './SearchScreen';
 import DisplayScreen from './DisplayScreen';
@@ -24,7 +25,7 @@ const AppContainer = createAppContainer(AppNavigator);
 export default class App extends Component {
   render() {
     return (
-      <APIKeyContext.Provider value="11630591-eda87b0fc54bf01f19cac7a0c">
+      <APIKeyContext.Provider value={APIKey}>
         <AppContainer />
       </APIKeyContext.Provider>
     );
