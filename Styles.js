@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
+// Main application StyleSheet
 export default StyleSheet.create({
   Logo: {
     width: 256,

@@ -5,6 +5,7 @@ import {APIKeyContext} from './APIKeyContext';
 import Styles from './Styles';
 
 export default class DetailsScreen extends Component {
+  // Navigation bar title is the image's pixabay ID
   static navigationOptions = ({ navigation }) => {
     const id = navigation.getParam('id', '');
     return {
@@ -13,6 +14,7 @@ export default class DetailsScreen extends Component {
   }
 
   render() {
+    // Retrieve all navigation params from react-navigation
     const largeImageURL = this.props.navigation.getParam('largeImageURL', '');
     const views = this.props.navigation.getParam('views', '');
     const downloads = this.props.navigation.getParam('downloads', '');
@@ -23,7 +25,9 @@ export default class DetailsScreen extends Component {
       <View style={Styles.Details}>
         <Image
           style={[Styles.DetailImage, {
+            // Image fill sthe full width of the screen
             width: Dimensions.get('window').width,
+            // Resize the image's height accordingly, to maintain its aspect ratio
             height: (Dimensions.get('window').width / imageWidth) * imageHeight
           }]}
           source={{uri: largeImageURL}}

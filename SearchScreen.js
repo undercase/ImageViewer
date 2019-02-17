@@ -23,6 +23,7 @@ export default class SearchScreen extends Component {
   }
 
   onSearchButtonPress = () => {
+    // Don't execute an empty search
     if (this.state.search !== '') {
       this.props.navigation.navigate('Display', {
         searchQuery: this.state.searchQuery

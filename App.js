@@ -23,6 +23,7 @@ const AppNavigator = createStackNavigator(
 
 const AppContainer = createAppContainer(AppNavigator);
 
+// Use the Context API to provide the APIKey to every screen
 export default class App extends Component {
   render() {
     return (

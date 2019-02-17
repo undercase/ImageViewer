@@ -33,7 +33,7 @@ Once the user clicks on an image, they are brought to that image's detail view. 
 
 ## Setup
 
-This app requires a pixabay API key. In order to manage the API Keya s an environment variable, it uses the `react-native-dotenv` package. Create a file named `.env` in the root directory of the repository, and insert the API Key into it as follows:
+This app requires a pixabay API key. In order to manage the API Key as an environment variable, it uses the `react-native-dotenv` package. Create a file named `.env` in the root directory of the repository, and insert the API Key into it as follows:
 
     APIKey=<Your API Key Here>
 
