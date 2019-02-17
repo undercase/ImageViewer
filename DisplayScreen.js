@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image, Alert, TouchableOpacity} from 'react-native';
+import {Text, View, Image, Alert, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {FlatList} from 'react-navigation';
 
 import {APIKeyContext} from './APIKeyContext';
@@ -11,16 +11,27 @@ function convertObjectToQueryString(obj) {
 
 export default class DisplayScreen extends Component {
   static contextType = APIKeyContext;
+
+  static navigationOptions = ({ navigation }) => {
+    const searchQuery = navigation.getParam('searchQuery', '');
+    return {
+      title: searchQuery
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
       currentPage: 1,
-      images: {}
+      images: []
     };
   }
 
-  retrieveImagesFromAPI() {
+  retrieveImagesFromAPI = () => {
+    this.setState({
+      isLoading: true
+    });
     const apiKey = this.context;
     const searchQuery = this.props.navigation.getParam('searchQuery', '');
     const perPage = 20;
@@ -34,10 +45,12 @@ export default class DisplayScreen extends Component {
     return fetch(`https://pixabay.com/api/?${queryString}`)
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          images: responseJson.hits
-        })
+        this.setState((state, props) => {
+          return {
+            isLoading: false,
+            images: state.images.concat(responseJson.hits)
+          };
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -48,21 +61,19 @@ export default class DisplayScreen extends Component {
     return this.retrieveImagesFromAPI();
   }
 
-  onImagePress = ({largeImageURL, views, downloads, imageWidth, imageHeight}) => {
+  onImagePress = ({largeImageURL, views, downloads, imageWidth, imageHeight, id}) => {
     this.props.navigation.navigate('Details', {
       largeImageURL,
       views,
       downloads,
       imageWidth,
-      imageHeight
+      imageHeight,
+      id
     });
   }
 
   render() {
     const searchQuery = this.props.navigation.getParam('searchQuery', '');
-    if (this.state.isLoading) {
-      return <Text>Retrieving search results for: {searchQuery}</Text>;
-    }
 
     const renderImage = ({item}) => {
       return (
@@ -82,11 +93,14 @@ export default class DisplayScreen extends Component {
     const keyExtractor = ({id}, index) => id.toString();
 
     return (
-      <View style={Styles.ListStyle}>
+      <View style={Styles.ListContainer}>
         <FlatList
           data={this.state.images}
           renderItem={renderImage}
           keyExtractor={keyExtractor}
+          ListFooterComponent={() => this.state.isLoading ? <ActivityIndicator animating size="large" /> : null}
+          onEndReached={this.retrieveImagesFromAPI}
+          onEndReachedThreshold={0.5}
         />
       </View>
     );
