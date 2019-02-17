@@ -32,11 +32,11 @@ export default class DisplayScreen extends Component {
     this.setState({
       isLoading: true
     });
-    const apiKey = this.context;
+    const APIKey = this.context;
     const searchQuery = this.props.navigation.getParam('searchQuery', '');
     const perPage = 20;
     const queryString = convertObjectToQueryString({
-      key: apiKey,
+      key: APIKey,
       q: searchQuery,
       image_type: 'photo',
       page: this.state.currentPage,

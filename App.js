@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
+import {Platform, StyleSheet, Text, View, Alert} from 'react-native';
 
+import {APIKey} from 'react-native-dotenv';
 import {APIKeyContext} from './APIKeyContext';
-import {APIKey} from './APIKey';
+
 
 import SearchScreen from './SearchScreen';
 import DisplayScreen from './DisplayScreen';
