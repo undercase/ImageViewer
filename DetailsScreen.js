@@ -25,7 +25,7 @@ export default class DetailsScreen extends Component {
       <View style={Styles.Details}>
         <Image
           style={[Styles.DetailImage, {
-            // Image fill sthe full width of the screen
+            // Image fills the full width of the screen
             width: Dimensions.get('window').width,
             // Resize the image's height accordingly, to maintain its aspect ratio
             height: (Dimensions.get('window').width / imageWidth) * imageHeight
